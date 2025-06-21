@@ -1,0 +1,4 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://rohikakad:Shree%402020@cluster0.eah3l.mongodb.net/shoperz?retryWrites=true&w=majority
