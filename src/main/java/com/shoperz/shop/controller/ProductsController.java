@@ -1,5 +1,6 @@
 package com.shoperz.shop.controller;
 
+import com.shoperz.shop.DTO.SaveProductsResponse;
 import com.shoperz.shop.model.Products;
 import com.shoperz.shop.service.ProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,10 @@ public class ProductsController {
     private ProductsService ser;
 
     @PostMapping("/saveAll")
-    public ResponseEntity<List<Products>> saveProducts(@RequestBody List<Products> products){
+    public ResponseEntity<SaveProductsResponse> saveProducts(@RequestBody List<Products> products){
        try {
-          List<Products> createdRecords = ser.saveProducts(products);
-          return ResponseEntity.status(HttpStatus.CREATED).body(createdRecords);
+          SaveProductsResponse result = ser.saveProducts(products);
+          return ResponseEntity.status(HttpStatus.CREATED).body(result);
        } catch (Exception e) {
            throw new ResponseStatusException(
                    HttpStatus.INTERNAL_SERVER_ERROR, "Failed to save", e
