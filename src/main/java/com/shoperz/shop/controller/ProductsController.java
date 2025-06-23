@@ -1,5 +1,6 @@
 package com.shoperz.shop.controller;
 
+import com.shoperz.shop.DTO.ApiResponse;
 import com.shoperz.shop.DTO.SaveProductsResponse;
 import com.shoperz.shop.model.Products;
 import com.shoperz.shop.service.ProductsService;
@@ -43,6 +44,36 @@ public class ProductsController {
         } catch (Exception e) {
             throw new ResponseStatusException(
                     HttpStatus.INTERNAL_SERVER_ERROR, "Failed to retrieve the products",e
+            );
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<Products>>  getProductById(@PathVariable Integer id){
+        Products products = ser.getProductById(id);
+
+        if(products != null){
+            return ResponseEntity.ok(
+                    new ApiResponse<>(true, "Product found", products)
+            );
+        }else {
+            return ResponseEntity.ok(
+                    new ApiResponse<>(false, "Not Found", null)
+            );
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Products>>  deleteProductById(@PathVariable Integer id){
+        Products products = ser.deleteProductById(id);
+
+        if(products != null){
+            return ResponseEntity.ok(
+                    new ApiResponse<>(true, "Product deleted", products)
+            );
+        }else {
+            return ResponseEntity.ok(
+                    new ApiResponse<>(false, "Not Found", null)
             );
         }
     }
